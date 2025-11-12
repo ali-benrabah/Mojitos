@@ -1,8 +1,8 @@
 #!/bin/bash
 # measure.sh <freq_khz> <command> [args...]
 # Exemple : ./measure.sh 4200000 ./julia_c
-#           ./measure.sh 1400000 mpirun -np 4 python3 julia_py.py
-
+#./measure.sh 1400000 mpirun -np 4 python3 julia_py.py
+# version 2
 FREQ=$1
 shift
 CMD="$@"
