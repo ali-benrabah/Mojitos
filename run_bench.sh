@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# --- DETECTION ---
+
 if [ -f "../mojitos/bin/mojitos" ]; then MOJITOS_BIN="../mojitos/bin/mojitos"
 elif [ -f "$HOME/mojitos/bin/mojitos" ]; then MOJITOS_BIN="$HOME/mojitos/bin/mojitos"
 elif [ -f "./mojitos/bin/mojitos" ]; then MOJITOS_BIN="./mojitos/bin/mojitos"
@@ -9,18 +9,17 @@ else echo "Erreur: Mojitos introuvable"; exit 1; fi
 APP="./julia_omp"
 OUTPUT="resultats_complets.csv"
 
-# En-tête avec une nouvelle colonne "Strategie"
+
 echo "Strategie,Threads,Frequence_Hz,Temps_s,Energie_J,Puissance_W" > $OUTPUT
 
-# --- LES VARIATIONS POUR LE PROF ---
-FREQS=("Max") # On garde Max pour simplifier l'analyse des stratégies
-THREADS=(4 16) # On teste 4 et 16 pour voir l'impact
-STRATEGIES=("static" "dynamic") # <-- C'est ça que le prof veut voir !
+FREQS=("Max")
+THREADS=(4 16) 
+STRATEGIES=("static" "dynamic") 
 
 echo "Démarrage du benchmark avancé..."
 
 for sched in "${STRATEGIES[@]}"; do
-    # On définit la stratégie pour OpenMP
+    
     export OMP_SCHEDULE=$sched
     
     for t in "${THREADS[@]}"; do
@@ -38,7 +37,6 @@ for sched in "${STRATEGIES[@]}"; do
             echo "------------------------------------------------"
             echo "Test : Stratégie=$sched | Threads=$t | Freq=$REAL_F"
 
-            # ON PASSE LES DEUX VARIABLES A SUDO : Threads ET Schedule
             RES=$(sudo-g5k $MOJITOS_BIN -r -f 10 -o /tmp/run.log -- env OMP_NUM_THREADS=$t OMP_SCHEDULE=$sched $APP)
             
             TIME=$(echo "$RES" | grep "Time:" | awk '{print $2}')

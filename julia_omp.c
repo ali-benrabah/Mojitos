@@ -2,10 +2,8 @@
 #include <stdlib.h>
 #include <omp.h>
 
-// On augmente la résolution et les itérations pour durer plus longtemps
 #define WIDTH 10000
 #define HEIGHT 10000
-// AUGMENTATION ICI : 5000 au lieu de 1000
 #define MAX_ITER 5000
 
 void save_dummy(unsigned char *pixels) {
@@ -21,7 +19,6 @@ int main() {
     double ymin = -1, ymax = 1;
     double c_real = -0.8, c_imag = 0.156;
 
-    // DEBUG : Vérifier si OpenMP est actif
     int max_threads = omp_get_max_threads();
     printf("DEBUG_THREADS: %d\n", max_threads);
 
