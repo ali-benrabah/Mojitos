@@ -29,7 +29,7 @@ for sched in "${STRATEGIES[@]}"; do
         for f in "${FREQS[@]}"; do
             if [ "$f" == "Max" ]; then
                  sudo-g5k cpupower frequency-set -g performance > /dev/null 2>&1
-                 REAL_F="Performance"
+                 REAL_F="3.9GHz"
             else
                  sudo-g5k cpupower frequency-set -f ${f}kHz > /dev/null 2>&1
                  REAL_F=$f

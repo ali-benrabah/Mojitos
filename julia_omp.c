@@ -30,7 +30,7 @@ int main() {
 
     double start = omp_get_wtime();
 
-    #pragma omp parallel for schedule(dynamic)
+    #pragma omp parallel for schedule(runtime)
     for (int line = 0; line < HEIGHT; line++) {
         for (int col = 0; col < WIDTH; col++) {
             double x = xmin + col * (xmax - xmin) / WIDTH;
